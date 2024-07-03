@@ -21,6 +21,7 @@ const App = () => {
       setLoading(true);
       const res = await fetch(`${API}/search?q=${searchText}`);
       const data = await res.json();
+      setLoading(false);
       setResults(data);
     };
     effect();
@@ -35,7 +36,10 @@ const App = () => {
         <div>
           {results.map((r) => (
             // TODO we must finalize this integration!! not very pretty like this
-            <div className="border border-dashed">{JSON.stringify(r)}</div>
+            <div className="border border-dashed">
+              <div>Type: {r.type}</div>
+              <div>{JSON.stringify(r)}</div>
+            </div>
           ))}
         </div>
       ) : null}
