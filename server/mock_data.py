@@ -51,5 +51,36 @@ mock_data = [
       "to": "r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV",
       "from": "rEWoXTmxwqqnPdYqtVEuoRgJXARXxf21Sn"
     }
-  }
+  },
+  {
+    "id": 6,
+    "type": "TRANSACTION_RECEIVED",
+    "data": {
+      "id": 5,
+      "amount": 250,
+      "unit": "USDT",
+      "to": "r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV",
+      "from": "rEWoXTmxwqqnPdYqtVEuoRgJXARXxf21Sn"
+    }
+  },
+  {
+    "id": 7,
+    "type": "TRANSACTION_SENT",
+    "data": {
+      "id": 4,
+      "amount": 70,
+      "unit": "USDT",
+      "to": "tz1aiA3JtWw1hPTmmc9uyXK4boY2EjbRCPQ6",
+      "from": "tz1gE2Re6TdVLRPh2ZqxZnGkE5WPWEQHHkfS"
+    }
+  },
+  {
+    "id": 8,
+    "type": "ACCOUNT_CREATED",
+    "data": {
+      "id": 2,
+      "name": "My lovely USDT account",
+      "currency": "USDT"
+    }
+  },
 ]
