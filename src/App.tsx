@@ -1,48 +1,64 @@
 import { useEffect, useState } from "react";
-import TextInput from "./components/TextInput";
-
-const API = "http://localhost:5000";
-
-type Notif = {
-  id: string;
-  type: string;
-  // FIXME we should *probably* not have this `any`
-  data: any;
-};
+import { Notification } from "@shared/types/notification";
+import { LoadingSkeleton, NotificationsList, TextInput } from "@components";
+import useDebounce from "@shared/hooks/useDebounce";
+import { searchLabels } from "@shared/labels/search";
 
 const App = () => {
   const [searchText, setSearchText] = useState("");
+  const debouncedSearchText = useDebounce(searchText);
+  const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [results, setResults] = useState<null | Notif[]>(null);
+  const [results, setResults] = useState<null | Notification[]>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
     const effect = async () => {
-      // FIXME there is something wrong with this loading state... to be investigated :D
+      setError(false);
       setLoading(true);
-      const res = await fetch(`${API}/search?q=${searchText}`);
-      const data = await res.json();
-      setLoading(false);
-      setResults(data);
+
+      //TODO Introduce separate API service and custom hook for calling API
+      try {
+        const res = await fetch(
+          `${import.meta.env["VITE_API_HOST"]}/search?q=${searchText}`,
+          { signal },
+        );
+        const data = await res.json();
+        setResults(data);
+        setLoading(false);
+      } catch (error) {
+        if (error instanceof Error && error?.name !== "AbortError") {
+          setError(true);
+          setLoading(false);
+          setResults([]);
+        }
+      }
     };
     effect();
-  }, [searchText, setLoading, setResults]);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [debouncedSearchText]);
 
   return (
-    <div>
-      <TextInput value={searchText} onChange={setSearchText} placeholder="Type to filter events" />
+    <div className="flex flex-col gap-8">
+      <TextInput
+        value={searchText}
+        onChange={setSearchText}
+        placeholder="Type to filter events"
+      />
       {isLoading ? (
-        <div>{"Loading..."}</div>
-      ) : results ? (
-        <div>
-          {results.map((r) => (
-            // TODO we must finalize this integration!! not very pretty like this
-            <div className="border border-dashed">
-              <div>Type: {r.type}</div>
-              <div>{JSON.stringify(r)}</div>
-            </div>
-          ))}
-        </div>
-      ) : null}
+        <LoadingSkeleton></LoadingSkeleton>
+      ) : error ? (
+        <div>{searchLabels.error}</div>
+      ) : results?.length ? (
+        <NotificationsList notifications={results}></NotificationsList>
+      ) : (
+        <div>{searchLabels.notFound}</div>
+      )}
     </div>
   );
 };

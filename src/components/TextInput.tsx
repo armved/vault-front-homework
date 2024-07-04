@@ -11,18 +11,16 @@ type Props = Omit<
   onChange: (value: string) => void;
 };
 
-const TextInput = (props: Props) => {
+export const TextInput = (props: Props) => {
   const { onChange, ...p } = props;
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     onChange(e.target.value);
   return (
     <input
-      className="border-4 p-2"
+      className="border-2 p-2 w-full shadow-sm border-gray-200 rounded-lg"
       type="text"
       onChange={handleChange}
       {...p}
     />
   );
 };
-
-export default TextInput;
