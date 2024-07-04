@@ -19,9 +19,9 @@ export const TransactionNotificationBlock: React.FC<{
   return (
     <div className="rounded-xl bg-white border border-gray-200 shadow-sm p-4 flex gap-8 items-center justify-between">
       <div className="flex gap-2">
-        {type === NotificationTypes.TRANSACTION_SENT ? (
+        {isSent ? (
           <ArrowUpCircleIcon className="w-6 h-6 text-gray-500"></ArrowUpCircleIcon>
-        ) : type === NotificationTypes.TRANSACTION_RECEIVED ? (
+        ) : isReceived ? (
           <ArrowDownCircleIcon className="w-6 h-6 text-green-500"></ArrowDownCircleIcon>
         ) : null}
 
