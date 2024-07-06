@@ -24,7 +24,7 @@ const App = () => {
       setError(false);
       setLoading(true);
 
-      //TODO Introduce separate API service and custom hook for calling API
+      //TODO Introduce separate API service and custom hook for calling API, introduce Axios for requests
       try {
         const res = await fetch(
           `${import.meta.env["VITE_API_HOST"]}/search?q=${searchText}`,
