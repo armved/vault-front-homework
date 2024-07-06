@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Notification } from "@shared/types/notification";
-import { LoadingSkeleton, NotificationsList, TextInput } from "@components";
+import {
+  LoadingSkeleton,
+  NotificationsList,
+  TextInput,
+  ThemeSwitcher,
+} from "@components";
 import useDebounce from "@shared/hooks/useDebounce";
 import { searchLabels } from "@shared/labels/search";
 
@@ -44,21 +49,27 @@ const App = () => {
   }, [debouncedSearchText]);
 
   return (
-    <div className="flex flex-col gap-8">
-      <TextInput
-        value={searchText}
-        onChange={setSearchText}
-        placeholder="Type to filter events"
-      />
-      {isLoading ? (
-        <LoadingSkeleton></LoadingSkeleton>
-      ) : error ? (
-        <div>{searchLabels.error}</div>
-      ) : results?.length ? (
-        <NotificationsList notifications={results}></NotificationsList>
-      ) : (
-        <div>{searchLabels.notFound}</div>
-      )}
+    <div id="page" className="h-full p-16 bg-gray-100 dark:bg-slate-800">
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-16 justify-between">
+          <TextInput
+            value={searchText}
+            onChange={setSearchText}
+            placeholder="Type to filter events"
+          />
+          <ThemeSwitcher></ThemeSwitcher>
+        </div>
+
+        {isLoading ? (
+          <LoadingSkeleton></LoadingSkeleton>
+        ) : error ? (
+          <div>{searchLabels.error}</div>
+        ) : results?.length ? (
+          <NotificationsList notifications={results}></NotificationsList>
+        ) : (
+          <div>{searchLabels.notFound}</div>
+        )}
+      </div>
     </div>
   );
 };

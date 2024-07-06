@@ -17,25 +17,25 @@ export const TransactionNotificationBlock: React.FC<{
   const isReceived = type === NotificationTypes.TRANSACTION_RECEIVED;
 
   return (
-    <div className="rounded-xl bg-white border border-gray-200 shadow-sm p-4 flex gap-8 items-center justify-between">
+    <div className="rounded-xl bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-900 shadow-sm p-4 flex gap-8 items-center justify-between">
       <div className="flex gap-2">
         {isSent ? (
-          <ArrowUpCircleIcon className="w-6 h-6 text-gray-500"></ArrowUpCircleIcon>
+          <ArrowUpCircleIcon className="w-6 h-6 text-gray-500 dark:text-gray-400"></ArrowUpCircleIcon>
         ) : isReceived ? (
-          <ArrowDownCircleIcon className="w-6 h-6 text-green-500"></ArrowDownCircleIcon>
+          <ArrowDownCircleIcon className="w-6 h-6 text-green-500 dark:text-green-600"></ArrowDownCircleIcon>
         ) : null}
 
-        <div className="text-sm font-medium leading-6 text-gray-900">
+        <div className="text-sm font-medium leading-6 text-slate-900 dark:text-white">
           {NotificationLabels[type]}
         </div>
 
-        <span className="text-gray-500">
+        <span className="text-gray-500 dark:text-gray-400">
           ({isSent ? `to: ${data.to}` : isReceived ? `from: ${data.from}` : ""})
         </span>
       </div>
 
       <span
-        className={`font-semibold ${isReceived ? "text-green-500" : "text-gray-500"}`}
+        className={`font-semibold ${isReceived ? "text-green-500 dark:text-green-600" : "text-gray-500 dark:text-gray-400"}`}
       >
         {`${isSent ? "-" : isReceived ? "+" : ""}${data.amount} ${data.unit}`}
       </span>

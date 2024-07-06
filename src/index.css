@@ -3,5 +3,10 @@
 @tailwind utilities;
 
 body {
-  @apply p-16;
+  height: 100vh;
+  overflow: auto;
+
+  #root {
+    height: 100%;
+  }
 }

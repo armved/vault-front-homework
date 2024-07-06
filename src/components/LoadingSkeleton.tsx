@@ -1,6 +1,6 @@
 import React from "react";
 
-export const LoadingSkeleton: React.FC<{ blockRepeatCount: number }> = ({
+export const LoadingSkeleton: React.FC<{ blockRepeatCount?: number }> = ({
   blockRepeatCount,
 }) => {
   const defaultRepeatCount = 6;
