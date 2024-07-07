@@ -49,7 +49,10 @@ const App = () => {
   }, [debouncedSearchText]);
 
   return (
-    <div id="page" className="h-full p-16 bg-gray-100 dark:bg-slate-800">
+    <div
+      id="page"
+      className="h-full p-16 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-100"
+    >
       <div className="flex flex-col gap-4">
         <div className="flex gap-16 justify-between">
           <TextInput
